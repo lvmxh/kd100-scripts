@@ -4,6 +4,8 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+CIDR="192.168.0.0/16"
+
 apt-get install -y apt-transport-https
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
@@ -12,6 +14,14 @@ EOF
 apt-get update
 apt-get install -y kubelet=1.7.5-00 kubeadm=1.7.5-00 kubectl=1.7.5-00
 #apt-get install -y kubelet kubeadm kubectl
+
 kubeadm version
+kubeadm init --kubernetes-version v1.7.5 --pod-network-cidr=${CIDR}
+#kubeadm init --token ${token} --kubernetes-version v1.7.5 --pod-network-cidr=${CIDR}
+
+#mkdir -p $HOME/.kube
+#sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#sudo chown $(id -u):$(id -g) $HOME/.kube/config
+kubectl taint nodes --all node-role.kubernetes.io/master-
 
 
