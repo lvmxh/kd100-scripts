@@ -26,5 +26,5 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 #chown $(id -u):$(id -g) $HOME/.kube/config
 chown ${USER}:${GROUP} $HOME/.kube/config
 
-kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
-kubectl taint nodes --all node-role.kubernetes.io/master-
+sudo -u ${USER} kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+sudo -u ${USER} kubectl taint nodes --all node-role.kubernetes.io/master-
