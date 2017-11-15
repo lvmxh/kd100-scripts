@@ -4,6 +4,8 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+USER=stack
+GROUP=stack
 CIDR="192.168.0.0/16"
 
 apt-get install -y apt-transport-https
@@ -19,9 +21,10 @@ kubeadm version
 kubeadm init --kubernetes-version v1.7.5 --pod-network-cidr=${CIDR}
 #kubeadm init --token ${token} --kubernetes-version v1.7.5 --pod-network-cidr=${CIDR}
 
-#mkdir -p $HOME/.kube
-#sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-#sudo chown $(id -u):$(id -g) $HOME/.kube/config
-kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+mkdir -p $HOME/.kube
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#chown $(id -u):$(id -g) $HOME/.kube/config
+chown ${USER}:${GROUP} $HOME/.kube/config
 
+kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
 kubectl taint nodes --all node-role.kubernetes.io/master-

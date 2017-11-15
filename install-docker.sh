@@ -17,7 +17,7 @@ usermod -aG docker $USER
 iptables -P FORWARD ACCEPT
 cat <<EOF >/etc/docker/daemon.json
 {
-  "live-restore": true,
-  "exec-opts": ["native.cgroupdriver=systemd"]
+  "live-restore": true
 }
 EOF
+service docker restart
