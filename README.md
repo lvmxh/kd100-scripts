@@ -23,7 +23,7 @@ steps from lab manuals. We can do this using scripts in this publicly available 
 
 ### How do I test? ###
 
-* kubectl create -f labs
+* kubectl create -f test
 * port=$(kubectl get svc echoserver -o jsonpath='{.spec.ports[0].nodePort}')
 * pubip=$(curl -s 169.254.169.254/2016-09-02/meta-data/public-ipv4)
 * curl ${pubip}:${port}
