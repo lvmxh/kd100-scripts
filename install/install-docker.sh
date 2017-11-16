@@ -14,7 +14,7 @@ apt-get install -y docker-ce=17.03.2~ce-0~ubuntu-xenial
 docker version
 
 usermod -aG docker $USER
-iptables -P FORWARD ACCEPT
+iptables -A FORWARD -i eth0 -o docker0 -j ACCEPT
 cat <<EOF >/etc/docker/daemon.json
 {
   "live-restore": true
