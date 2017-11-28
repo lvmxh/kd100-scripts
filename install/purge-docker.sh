@@ -4,8 +4,5 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-kubectl drain lab --delete-local-data --force --ignore-daemonsets
-kubectl delete node lab
-kubeadm reset
-
+service docker stop
 apt-get remove docker docker-engine docker.io docker-ce

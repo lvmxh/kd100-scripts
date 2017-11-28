@@ -8,6 +8,18 @@ USER=stack
 GROUP=stack
 CIDR="192.168.0.0/16"
 
+# Nice to have: make sure if dockerd is restarted it won't kill k8s
+cat <<EOF >/etc/docker/daemon.json
+{
+  "live-restore": true
+}
+EOF
+
+# Docker is configured to drop external traffic. Appending the forwarding rule allows
+# access the docker0, which allows kubernetes nodePort to work.
+iptables -A FORWARD -i eth0 -o docker0 -j ACCEPT
+service docker restart
+
 apt-get install -y apt-transport-https
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
