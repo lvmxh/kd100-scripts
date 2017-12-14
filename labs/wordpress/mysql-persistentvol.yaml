@@ -5,6 +5,7 @@ metadata:
   labels:
     vol: mysql
 spec:
+  persistentVolumeReclaimPolicy: Recycle
   capacity:
     storage: 5Gi
   accessModes:
