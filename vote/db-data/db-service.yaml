@@ -5,10 +5,9 @@ metadata:
     app: db
   name: db
 spec:
-  clusterIP: None
   ports:
-  - name: headless
-    port: 55555
-    targetPort: 0
+  - port: 5432
+    targetPort: 5432
+    protocol: TCP
   selector:
     app: db
