@@ -17,3 +17,16 @@ apt-get install -y docker-ce=17.03.2~ce-0~ubuntu-xenial
 docker version
 
 usermod -aG docker $USER
+
+# Nice to have: make sure if dockerd is restarted it won't kill k8s
+cat <<EOF >/etc/docker/daemon.json
+{
+  "live-restore": true
+}
+EOF
+
+# Docker is configured to drop external traffic. Appending the forwarding rule allows
+# access the docker0, which allows kubernetes nodePort to work.
+# iptables -A FORWARD -i eth0 -o docker0 -j ACCEPT
+service docker restart
+
