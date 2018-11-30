@@ -13,8 +13,8 @@ steps from lab manuals. We can do this using scripts in this publicly available 
 
 * git clone https://bitbucket.org/mirantis-training/kd100-scripts
 * cd kd100-scripts
-* sudo ./install/install-docker.sh
-* sudo ./install/install-k8s.sh
+* sudo USER=$USER GROUP=$USER ./install/install-docker.sh
+* sudo USER=$USER GROUP=$USER NIC=ens3 ./install/install-k8s.sh
 * 
 * To setup student environments we should use at tag or branch. I've
 * setup a "latest", but tag creates a detached head, so may switch to

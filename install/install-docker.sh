@@ -4,7 +4,8 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-USER=stack
+# USER=stack
+# USER=ubuntu
 
 apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
