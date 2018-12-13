@@ -41,7 +41,31 @@ mkdir -p $HOME/.kube
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 #chown $(id -u):$(id -g) $HOME/.kube/config
 chown -R ${USER}:${GROUP} $HOME/.kube
-sudo -u ${USER} kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
-# sudo -u ${USER} kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+# https://github.com/projectcalico/calico
+upstream="master"
+latest=`./get_latest_calico.py`
+VER=""
+if [ $? -ne 0 ]; then
+    echo  "ERROR: failed to get the calico latest version, please check by yourself"
+else
+    VER=$latest
+fi
+
+VER=${CALICOVER:-$VER}
+# VER=${CALICOVER:-$upstream}
+echo "$VER"
+
+# getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/
+if [ ! -n "$CALICONETVER" ]; then
+    NPATH=`./get_calico_yaml.py -cv $VER`
+    if [ $? -ne 0 ]; then
+        echo  "ERROR: failed to get the calico network version, please check by yourself"
+    fi
+else
+    NPATH=$VER/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/$CALICONETVER
+fi
 
 sudo -u ${USER} kubectl taint nodes --all node-role.kubernetes.io/master-
+
+sudo -u ${USER} kubectl apply -f https://docs.projectcalico.org/$NPATH/calico.yaml
+# sudo -u ${USER} kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml

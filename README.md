@@ -14,7 +14,7 @@ steps from lab manuals. We can do this using scripts in this publicly available 
 * git clone https://bitbucket.org/mirantis-training/kd100-scripts
 * cd kd100-scripts
 * sudo USER=$USER GROUP=$USER ./install/install-docker.sh
-* sudo USER=$USER GROUP=$USER NIC=ens3 ./install/install-k8s.sh
+* sudo CALICOVER=master CALICONETVER=1.7 USER=$USER GROUP=$USER NIC=ens3 ./install/install-k8s.sh
 * 
 * To setup student environments we should use at tag or branch. I've
 * setup a "latest", but tag creates a detached head, so may switch to
@@ -39,3 +39,11 @@ steps from lab manuals. We can do this using scripts in this publicly available 
 ### Who do I talk to? ###
 
 * Reza Roodsari
+
+
+### How to install calico network  ###
+
+* [master nightly] (https://docs.projectcalico.org/master/getting-started/kubernetes/)
+* [latest version] (https://docs.projectcalico.org/latest/getting-started/kubernetes/)
+* [v3.4 less 50 nodes] (https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/calico#installing-with-the-kubernetes-api-datastore50-nodes-or-less)
+* [calico git hub] (https://github.com/projectcalico/calico)
