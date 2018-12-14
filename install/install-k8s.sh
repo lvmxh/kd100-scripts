@@ -67,5 +67,6 @@ fi
 
 sudo -u ${USER} kubectl taint nodes --all node-role.kubernetes.io/master-
 
+echo https://docs.projectcalico.org/$NPATH/calico.yaml
 sudo -u ${USER} kubectl apply -f https://docs.projectcalico.org/$NPATH/calico.yaml
 # sudo -u ${USER} kubectl apply -f http://docs.projectcalico.org/v2.4/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
