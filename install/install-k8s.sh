@@ -1,4 +1,6 @@
 #!/bin/bash -e
+BASEDIR=$(dirname "$0")
+
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root"
    exit 1
@@ -43,7 +45,7 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown -R ${USER}:${GROUP} $HOME/.kube
 # https://github.com/projectcalico/calico
 upstream="master"
-latest=`./get_latest_calico.py`
+latest=`$BASEDIR/get_latest_calico.py`
 VER=""
 if [ $? -ne 0 ]; then
     echo  "ERROR: failed to get the calico latest version, please check by yourself"
@@ -57,7 +59,7 @@ echo "$VER"
 
 # getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/
 if [ ! -n "$CALICONETVER" ]; then
-    NPATH=`./get_calico_yaml.py -cv $VER`
+    NPATH=`$BASEDIR/get_calico_yaml.py -cv $VER`
     if [ $? -ne 0 ]; then
         echo  "ERROR: failed to get the calico network version, please check by yourself"
     fi
