@@ -12,9 +12,9 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 apt-get update -y
 # kubernetes 1.9 only tested with 17.03.2
-apt-get install -y docker-ce=17.03.2~ce-0~ubuntu-xenial
+# apt-get install -y docker-ce=17.03.2~ce-0~ubuntu-xenial
 #apt-get install -y docker-ce=17.09
-#apt-get install -y docker-ce
+apt-get install -y docker-ce
 docker version
 
 usermod -aG docker $USER
@@ -30,4 +30,3 @@ EOF
 # access the docker0, which allows kubernetes nodePort to work.
 # iptables -A FORWARD -i eth0 -o docker0 -j ACCEPT
 service docker restart
-
